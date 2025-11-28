@@ -1,0 +1,378 @@
+{
+  "name": "Projeto",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "classificar",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -128,
+        -192
+      ],
+      "id": "e59bc1d0-3a2a-4aca-b128-1a0e24641006",
+      "name": "Webhook",
+      "webhookId": "ccd18787-99a9-4ab0-bc73-81e727c29b73"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ debug: $json }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        -192
+      ],
+      "id": "1564f7f0-5a63-400a-bcc1-8fb574f6d9a8",
+      "name": "Retorno json"
+    },
+    {
+      "parameters": {
+        "url": "https://krqzrjpwzelerkqxuxee.supabase.co/rest/v1/classificacoes?select=id,texto,categoria&embedding=is.null",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtycXpyanB3emVsZXJrcXh1eGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NjA2MDgsImV4cCI6MjA3OTIzNjYwOH0.n0Q3Al5BK2D_QhoYoYuYN166i8uObdamwoTiYoxpJRc"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtycXpyanB3emVsZXJrcXh1eGVlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzY2MDYwOCwiZXhwIjoyMDc5MjM2NjA4fQ.o9BHwmxMZ7M6p_fgrOh7jo29tqwpP-IGGHS3KQOS7c8"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -128,
+        192
+      ],
+      "id": "43e2ffac-cf70-4f0f-a8a1-c5db07416acc",
+      "name": "Get para popular"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://krqzrjpwzelerkqxuxee.supabase.co/rest/v1/rpc/match_classificacoes",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtycXpyanB3emVsZXJrcXh1eGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NjA2MDgsImV4cCI6MjA3OTIzNjYwOH0.n0Q3Al5BK2D_QhoYoYuYN166i8uObdamwoTiYoxpJRc"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtycXpyanB3emVsZXJrcXh1eGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NjA2MDgsImV4cCI6MjA3OTIzNjYwOH0.n0Q3Al5BK2D_QhoYoYuYN166i8uObdamwoTiYoxpJRc"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({\n  query_embedding: $json.debug.data[0].embedding,\n  match_count: 5,\n  match_threshold: 0.60\n}) }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        576,
+        -192
+      ],
+      "id": "22109e18-bc06-48b6-940b-40947e2c60e4",
+      "name": "HTTP Request - Conexão com Supabase",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"={{ $json.body.texto }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        112,
+        -192
+      ],
+      "id": "d2be144c-25cb-404c-9eda-ec4425a44094",
+      "name": "HTTP Request - Gerar Embeddings"
+    },
+    {
+      "parameters": {
+        "jsCode": "let results = $json;\n\n// caso não venha nada\nif (!results || Object.keys(results).length === 0) {\n  return [{\n    mensagem: \"Não foi possível classificar a mensagem.\",\n    categoria: \"não classificado\",\n    confianca: 0\n  }];\n}\n\n// se não for array\nif (!Array.isArray(results)) results = [results];\n\nif (results.length === 0) {\n  return [{\n    mensagem: \"Nenhuma categoria atingiu o threshold mínimo.\",\n    categoria: \"não classificado\",\n    confianca: 0\n  }];\n}\n\nconst top = results[0];\n\nreturn [{\n  mensagem: \"Classificação realizada com sucesso.\",\n  categoria: top.categoria,\n  confianca: top.similarity\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        -192
+      ],
+      "id": "c8c47b54-7db3-4166-9c95-e6bac8c52eec",
+      "name": "Formatar Resultado"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"mensagem\": \"Classificação realizada\",\n  \"categoria\": \"{{$json.categoria}}\",\n  \"confianca\": \"{{$json.confianca}}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1008,
+        -192
+      ],
+      "id": "94ebed61-f407-4cf0-a5a0-f46b59fa0a39",
+      "name": "Montar Json final",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "id, texto, categoria",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        80,
+        192
+      ],
+      "id": "4f37c964-6f26-4c8b-b44c-fec70d43234c",
+      "name": "Split Out - Dividir array"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"={{$json.texto}}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        352,
+        304
+      ],
+      "id": "1819071f-4777-496c-815f-6c2214cbe560",
+      "name": "HTTP Request - Gerar Embedding"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        624,
+        208
+      ],
+      "id": "63d2d53e-16d9-48d2-ba47-05864f512b8b",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://krqzrjpwzelerkqxuxee.supabase.co/rest/v1/classificacoes?id=eq.{{$json.id}}\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtycXpyanB3emVsZXJrcXh1eGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NjA2MDgsImV4cCI6MjA3OTIzNjYwOH0.n0Q3Al5BK2D_QhoYoYuYN166i8uObdamwoTiYoxpJRc"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtycXpyanB3emVsZXJrcXh1eGVlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzY2MDYwOCwiZXhwIjoyMDc5MjM2NjA4fQ.o9BHwmxMZ7M6p_fgrOh7jo29tqwpP-IGGHS3KQOS7c8"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"embedding\": {{ JSON.stringify($json.data[0].embedding) }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        976,
+        208
+      ],
+      "id": "39d3a5aa-e8fa-40c0-ba40-00e597a639b3",
+      "name": "HTTP Request - Atualizar Supabase"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Gerar Embeddings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retorno json": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Conexão com Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get para popular": {
+      "main": [
+        [
+          {
+            "node": "Split Out - Dividir array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Conexão com Supabase": {
+      "main": [
+        [
+          {
+            "node": "Formatar Resultado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Gerar Embeddings": {
+      "main": [
+        [
+          {
+            "node": "Retorno json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatar Resultado": {
+      "main": [
+        [
+          {
+            "node": "Montar Json final",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out - Dividir array": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request - Gerar Embedding",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Gerar Embedding": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Atualizar Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Atualizar Supabase": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6dd54930-63a9-433d-88d6-071595cc8a14",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4f0a477901c62361681d7df510880766c054ab8dc2d38adb2344eb95426bb8bd"
+  },
+  "id": "AWQqTQuDEFX0M5Nl",
+  "tags": []
+}
