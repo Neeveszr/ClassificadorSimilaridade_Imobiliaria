@@ -118,3 +118,5 @@ PS: Caso não queira usar uma interface, da pra fazer uma gambiarra com o site R
 
 <img width="538" height="709" alt="image" src="https://github.com/user-attachments/assets/f459e9ee-b90c-4031-aa10-af598662d9d7" />
 
+<img width="303" height="217" alt="image" src="https://github.com/user-attachments/assets/146d96a0-810a-437e-b87b-e16b2130ec3d" />
+
