@@ -19,6 +19,8 @@ Para geração de embeddings (vetores numéricos que representam o significado d
 
 * Função para retornar resultados por similaridade.
 
+  \
+
 🔹 n8n (Automação)
 * Orquestra toda a pipeline:
 
