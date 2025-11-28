@@ -106,3 +106,15 @@ $$;
 PS: Caso não queira usar uma interface, da pra fazer uma gambiarra com o site Reqbin pra testar
 
 ## 🖼 Prints do funcionamento
+<img width="502" height="646" alt="image" src="https://github.com/user-attachments/assets/a0fbe43b-f716-4709-ba25-bfb57e33df26" />
+
+<img width="538" height="648" alt="image" src="https://github.com/user-attachments/assets/38ed86d5-f602-4529-be01-ee5d0ee17249" />
+
+<img width="975" height="495" alt="image" src="https://github.com/user-attachments/assets/8e137b75-df98-4e5e-8387-67d1d7649265" />
+
+<img width="975" height="200" alt="image" src="https://github.com/user-attachments/assets/408fcd03-1e20-4a69-9b29-a0f4a4448ac6" />
+
+<img width="975" height="247" alt="image" src="https://github.com/user-attachments/assets/71f505aa-e588-4a10-a032-0c31570983c7" />
+
+<img width="538" height="709" alt="image" src="https://github.com/user-attachments/assets/f459e9ee-b90c-4031-aa10-af598662d9d7" />
+
