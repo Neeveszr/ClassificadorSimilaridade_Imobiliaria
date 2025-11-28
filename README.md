@@ -18,6 +18,7 @@ Para geração de embeddings (vetores numéricos que representam o significado d
 * Coluna vetorial vector(1536) para busca semântica.
 
 * Função para retornar resultados por similaridade.
+
 \
 
 🔹 n8n (Automação)
