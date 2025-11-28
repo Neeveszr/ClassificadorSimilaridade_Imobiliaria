@@ -42,6 +42,7 @@ Para geração de embeddings (vetores numéricos que representam o significado d
 https://youtu.be/cV4V33-oE_c
 ## 🌐 Link do site exemplo
 https://input-n8n-bridge.lovable.app/
+(Funcional até acabar o plano free do n8n KKKKKKKK)
 ## Como executar
 #### 1. Criar o banco vetorial no Supabase
 ```sql
