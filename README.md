@@ -33,7 +33,6 @@ Para geração de embeddings (vetores numéricos que representam o significado d
 
 * Retorna a categoria encontrada.
 
-\
 🔹 Interface (Lovable/Bubble/etc.)
 
 * Tela simples onde o usuário envia a mensagem.
