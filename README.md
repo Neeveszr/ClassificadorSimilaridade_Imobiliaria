@@ -40,6 +40,8 @@ Para geração de embeddings (vetores numéricos que representam o significado d
 * A aplicação consome o Webhook do n8n e exibe o setor classificado.
 ## 🎬 Link do Vídeo do Projeto
 https://youtu.be/cV4V33-oE_c
+## 🌐 Link do site exemplo
+https://input-n8n-bridge.lovable.app/
 ## Como executar
 #### 1. Criar o banco vetorial no Supabase
 ```sql
