@@ -55,29 +55,19 @@ CREATE TABLE classificacoes (
 #### 2. Criar função RPC de busca semântica
 
 ```sql
-CREATE OR REPLACE FUNCTION match_classificacoes(
-  query_embedding vector(1536),
-  match_count int DEFAULT 5
-)
-RETURNS TABLE (
-  id uuid,
-  categoria text,
-  texto text,
-  similarity float
-)
-LANGUAGE plpgsql AS $$
-BEGIN
-  RETURN QUERY
-  SELECT
+begin
+  return query
+  select
     c.id,
     c.categoria,
     c.texto,
-    1 - (c.embedding <=> query_embedding) AS similarity
-  FROM classificacoes c
-  ORDER BY c.embedding <=> query_embedding
-  LIMIT match_count;
-END;
-$$;
+    1 - (c.embedding <=> query_embedding) as similarity
+  from classificacoes c
+  where 1 - (c.embedding <=> query_embedding) > match_threshold
+  order by c.embedding <=> query_embedding
+  limit match_count;
+end;
+
 ```
 #### 3. Inserir dataset (frases + categorias)
 
